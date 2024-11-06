@@ -229,7 +229,7 @@ In the final part of this workshop, you will add the LFO and expose its frequenc
 
 Usually, we would implement parameter smoothing in this part but `juce::dsp::Oscillator` does that for us already.
 
-> [!HINT]
+> [!NOTE]
 > `juce::dsp::Oscillator` adds the generated sample to its input. Thus, to obtain the generated sample, we must call `Oscillator`'s `processSample()` member function with `0`, i.e., `const auto generatedSample = myOscillatorInstance_.processSample(0)`.
 
 - [ ] Add an LFO
