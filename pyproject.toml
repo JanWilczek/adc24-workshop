@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools ~= 67.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dsp-in-practice-adc24-workshop"
+description = "Audio Developer Conference 2024 \"DSP in Practice\" Workshop repository"
+version = "0.0.1"
+requires-python = ">=3.8"
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: Other/Proprietary License",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+    "numpy",
+    "scipy",
+    "matplotlib",
+    "soundfile",
+]
+
+[tool.setuptools]
+packages = ["py"]
+
