@@ -135,6 +135,7 @@ git checkout task1
 Given this DSP block diagram of a flanger plugin,
 
 ![Workshop Flanger Annotated](docs/img/WorkshopFlangerAnnotated.png)
+_Figure 1. Flanger DSP diagram._
 
 write down flanger update equations.
 
@@ -196,6 +197,11 @@ git checkout task3
 ```
 
 In this part, your goal is to create a basic working implementation of the flanger plugin. For this purpose, we'll reuse my [`audio-plugin-template` repository](https://github.com/JanWilczek/audio-plugin-template).
+
+This is the class diagram depicting the connections between the classes in a completed project (except handling multiple channels).
+
+![Plugin class diagram](docs/img/PluginClassDiagram.png)
+_Figure 2. Plugin class diagram._
 
 I intentionally set a high warning level and enabled "set warnings as errors" compilation option. As C++ developers we should utilize to the fullest what the compiler provides because compilers are highly specialized expert pieces of software. In plugin development we have the luxury of starting often with green-field projects (i.e., create a codebase from scratch). Starting out is the best time to enable said options. Every time you run into a compilation error, try to understand what compiler tells you and fix the warning in code.
 
