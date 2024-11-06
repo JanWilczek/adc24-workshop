@@ -165,7 +165,7 @@ These equations are the basis of the prototype.
 git checkout task2
 ```
 
-- [ ] Run `python py/main.py data/saw200.0Hz5.0s.wav` and check that audibly the output signal is the same as the input signal.
+- [ ] Run `python py/main.py data/saw200.0Hz5.0s.wav` and check that audibly the output signal is the same as the input signal
     - That's because the flanger returns the input sample in the `process_sample()` function.
 - [ ] Inspect the spectrograms generated in the _output_ folder. Are they identical visually?
 - [ ] Properly initialize the `Flanger` class instance
