@@ -2,6 +2,8 @@
 
 Workshop hosted at the Audio Developer Conference 2024 in Bristol.
 
+[Slides](docs/ADC24_Workshop_Slides_DSP_In_Practice.pdf)
+
 ## Getting started
 
 Follow these instructions **before** attending the workshop. There is high risk that because of low WiFi bandwidth at the conference venue, it will take too long or be impossible to set it up on the spot.
