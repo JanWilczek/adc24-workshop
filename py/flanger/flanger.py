@@ -138,39 +138,10 @@ class LFO:
 
 class Flanger:
     def __init__(self, sample_rate):
-        max_delay_ms = 2
-        self.max_delay = int(np.ceil(sample_rate * max_delay_ms / 1000))
-        self.delay_line = FractionalDelayLine(self.max_delay)
-        self.middle_delay = self.max_delay // 2
-        self.feedback = 0.7
-        self.blend = 0.7
-        self.feedforward = 0.7
-
-        self.lfo = LFO(sample_rate)
-        lfo_frequency_hz = 0.1
-        self.lfo.set_frequency(lfo_frequency_hz)
+        pass
 
     def process_sample(self, input_sample):
-        # Calculate the delay of the modulated tap
-        # m = s_{LFO,unipolar}[n] * D
-        lfo_unipolar_value = (self.lfo.get_next_value() + 1) / 2
-        current_delay = self.max_delay * lfo_unipolar_value
-        m = current_delay
-
-        x = input_sample
-
-        # Calculate the helper signal
-        # x_h[n] = x[n] + feedback * x_h[n - D/2]
-        x_h = x + self.feedback * self.delay_line.pop_sample(self.middle_delay)
-
-        # Calculate the output
-        # y[n] = blend * x_h[n] + feedforward * x_h[n - m]
-        y = self.blend * x_h + self.feedforward * self.delay_line.pop_sample(m)
-
-        # Update the buffers
-        self.delay_line.push_sample(x_h)
-
-        return y
+        return input_sample
 
 
 def apply_flanger(samples, sample_rate):
