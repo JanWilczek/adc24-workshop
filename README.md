@@ -165,26 +165,6 @@ These equations are the basis of the prototype.
 git checkout task2
 ```
 
-In this part, we're going to implement a flanger prototype. To this end, we'll use the following update equations:
-
-1. Calculate the modulated-delay value
-
-    $$
-    m = s_\text{LFO,unipolar}[n]D.
-    $$
-
-2. Calculate the helper signal sample
-
-    $$
-    x_h[n] = x[n] + \text{feedback } x_h[n-D/2].
-    $$
-
-3. Calculate the output sample
-
-    $$
-    y[n] = \text{blend }x_h[n] + \text{feedforward } x_h[n - m].
-    $$
-
 - [ ] Run `python py/main.py data/saw200.0Hz5.0s.wav` and check that audibly the output signal is the same as the input signal
     - That's because the flanger returns the input sample in the `process_sample()` function.
 - [ ] Inspect the spectrograms generated in the _output_ folder. Are they identical visually?
