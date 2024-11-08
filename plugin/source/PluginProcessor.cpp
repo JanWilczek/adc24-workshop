@@ -158,7 +158,19 @@ bool AudioPluginAudioProcessor::hasEditor() const {
 }
 
 juce::AudioProcessorEditor* AudioPluginAudioProcessor::createEditor() {
-  return new juce::GenericAudioProcessorEditor(*this);
+  struct EmptyEditor final : juce::AudioProcessorEditor {
+    explicit EmptyEditor(AudioPluginAudioProcessor& p)
+        : juce::AudioProcessorEditor(p) {
+      setSize(400, 300);
+    }
+
+    void paint(juce::Graphics& g) override {
+      g.fillAll(getLookAndFeel().findColour(
+          juce::ResizableWindow::backgroundColourId));
+    }
+  };
+
+  return new EmptyEditor(*this);
 }
 
 void AudioPluginAudioProcessor::getStateInformation(
