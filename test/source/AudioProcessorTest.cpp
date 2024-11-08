@@ -9,7 +9,7 @@ TEST(AudioProcessor, StereoTest) {
   using namespace std::chrono_literals;
 
   // given
-  AudioPluginAudioProcessor processor{{}};
+  AudioPluginAudioProcessor processor{};
 
   constexpr auto SAMPLES_PER_BLOCK = 441;
   constexpr auto SAMPLE_RATE = 44100_Hz;

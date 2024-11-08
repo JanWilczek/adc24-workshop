@@ -19,8 +19,7 @@ namespace id {
 static const juce::ParameterID LFO_FREQUENCY_HZ{"lfoFrequencyHz", 1};
 }
 
-AudioPluginAudioProcessor::AudioPluginAudioProcessor(
-    juce::AudioProcessorValueTreeState::ParameterLayout parameterLayout)
+AudioPluginAudioProcessor::AudioPluginAudioProcessor()
     : AudioProcessor(
           BusesProperties()
 #if !JucePlugin_IsMidiEffect
@@ -29,9 +28,7 @@ AudioPluginAudioProcessor::AudioPluginAudioProcessor(
 #endif
               .withOutput("Output", juce::AudioChannelSet::stereo(), true)
 #endif
-              ),
-      parameters_{parameterLayout},
-      apvts_{*this, nullptr, "FLANGERPARAMS", std::move(parameterLayout)} {
+      ) {
 }
 
 AudioPluginAudioProcessor::~AudioPluginAudioProcessor() = default;
@@ -144,12 +141,8 @@ void AudioPluginAudioProcessor::processBlock(
     buffer.clear(i, 0, buffer.getNumSamples());
   }
 
-  Flanger<SampleType>::Parameters newParameters{
-      .lfoFrequency = wolfsound::Frequency{parameters_.lfoFrequency.get()},
-  };
-  *flanger_.state = newParameters;
-
-  juce::dsp::AudioBlock<SampleType> audioBlock{buffer};
+  auto audioBlock =
+      juce::dsp::AudioBlock<SampleType>{buffer}.getSingleChannelBlock(0u);
   flanger_.process(juce::dsp::ProcessContextReplacing<SampleType>{audioBlock});
 }
 
@@ -188,20 +181,10 @@ void AudioPluginAudioProcessor::setStateInformation(const void* data,
   // call.
   juce::ignoreUnused(data, sizeInBytes);
 }
-
-AudioPluginAudioProcessor::Parameters::Parameters(
-    juce::AudioProcessorValueTreeState::ParameterLayout& layout)
-    : lfoFrequency{addToLayout<juce::AudioParameterFloat>(
-          layout,
-          id::LFO_FREQUENCY_HZ,
-          "LFO frequency",
-          juce::NormalisableRange<float>{0.01f, 10.f, 0.01f},
-          Flanger<SampleType>::Parameters{}.lfoFrequency.value(),
-          juce::AudioParameterFloatAttributes{}.withLabel("Hz"))} {}
 }  // namespace audio_plugin
 
 // This creates new instances of the plugin.
 // This function definition must be in the global namespace.
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter() {
-  return new audio_plugin::AudioPluginAudioProcessor({});
+  return new audio_plugin::AudioPluginAudioProcessor();
 }

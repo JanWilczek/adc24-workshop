@@ -10,33 +10,13 @@ namespace audio_plugin {
 template <typename SampleType>
 class Flanger {
 public:
-  struct Parameters {
-    using Ptr = std::shared_ptr<Parameters>;
-
-    wolfsound::Frequency lfoFrequency{0.1f};
-  };
-
-  Flanger() = default;
-  explicit Flanger(Parameters::Ptr parametersToUse)
-      : parameters_{parametersToUse} {}
-
   void prepare(const juce::dsp::ProcessSpec& spec) {
     constexpr auto MAX_DELAY_SECONDS = 0.002;
     maxDelay_ =
         static_cast<int>(std::ceil(spec.sampleRate * MAX_DELAY_SECONDS));
     middleDelay_ = maxDelay_ / SampleType(2);
-    lfo_.prepare(spec);
 
-    // reset the values to defaults
-    setParameters(Parameters{}, true);
     reset();
-  }
-
-  void setParameters(const Parameters& newParameters, bool force = false) {
-    if (newParameters.lfoFrequency !=
-        wolfsound::Frequency{lfo_.getFrequency()}) {
-      lfo_.setFrequency(newParameters.lfoFrequency.value(), force);
-    }
   }
 
   template <class ProcessContext>
@@ -60,8 +40,6 @@ public:
       return;
     }
 
-    setParameters(*parameters_);
-
     // Process samples one by one, at least initially.
     using namespace std::views;
     constexpr auto CHANNEL = 0u;
@@ -76,8 +54,7 @@ public:
     const auto& x = sample;
     const auto xh = x + feedback_ * delayLine_.popSample(middleDelay_);
 
-    const auto lfoUnipolarValue = (lfo_.processSample(0) + 1) / 2;
-    const auto currentDelay = lfoUnipolarValue * maxDelay_;
+    const auto currentDelay = maxDelay_;
 
     const auto y =
         blend_ * xh + feedforward_ * delayLine_.popSample(currentDelay);
@@ -87,21 +64,14 @@ public:
     return y;
   }
 
-  void reset() {
-    delayLine_.reset();
-    lfo_.reset();
-  }
+  void reset() { delayLine_.reset(); }
 
 private:
   SampleType feedforward_ = SampleType(0.7);
   SampleType feedback_ = SampleType(0.7);
   SampleType blend_ = SampleType(0.7);
   FractionalDelayLine delayLine_;
-  juce::dsp::Oscillator<SampleType> lfo_{
-      [](auto phase) { return std::sin(phase); }, 128u};
   int maxDelay_{};
   SampleType middleDelay_{};
-
-  Parameters::Ptr parameters_{std::make_shared<Parameters>()};
 };
 }  // namespace audio_plugin

@@ -9,8 +9,7 @@ class AudioPluginAudioProcessor : public juce::AudioProcessor {
 public:
   using SampleType = float;
 
-  explicit AudioPluginAudioProcessor(
-      juce::AudioProcessorValueTreeState::ParameterLayout parameterLayout);
+  explicit AudioPluginAudioProcessor();
   ~AudioPluginAudioProcessor() override;
 
   void prepareToPlay(double sampleRate, int samplesPerBlock) override;
@@ -41,19 +40,7 @@ public:
   void setStateInformation(const void* data, int sizeInBytes) override;
 
 private:
-  using ParameterLayout = juce::AudioProcessorValueTreeState::ParameterLayout;
-  using ParameterGroup = juce::AudioProcessorParameterGroup;
-
-  struct Parameters {
-    explicit Parameters(ParameterLayout&);
-    juce::AudioParameterFloat& lfoFrequency;  // NOLINT
-  };
-
-  Parameters parameters_;
-  juce::AudioProcessorValueTreeState apvts_;
-  juce::dsp::ProcessorDuplicator<Flanger<SampleType>,
-                                 Flanger<SampleType>::Parameters>
-      flanger_;
+  Flanger<SampleType> flanger_;
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(AudioPluginAudioProcessor)
 };
