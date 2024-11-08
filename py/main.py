@@ -2,6 +2,7 @@ import argparse
 from pathlib import Path
 import soundfile as sf
 from flanger.flanger import apply_flanger
+from dspyplot.stft import plot_spectrogram_and_save
 
 
 def argument_parser():
@@ -30,6 +31,27 @@ def main():
 
     # Write the processed samples
     sf.write(output_file_path, processed, sample_rate)
+
+    # Create spectrograms of input and output
+    fft_size = 2048
+    hop_size = fft_size // 8
+    window_size = fft_size // 2
+    plot_spectrogram_and_save(
+        samples,
+        sample_rate,
+        OUTPUT_PATH / f"{input_file_path.name}_input.png",
+        fft_size=fft_size,
+        hop_size=hop_size,
+        window_size=window_size,
+    )
+    plot_spectrogram_and_save(
+        processed,
+        sample_rate,
+        OUTPUT_PATH / f"{input_file_path.name}_output.png",
+        fft_size=fft_size,
+        hop_size=hop_size,
+        window_size=window_size,
+    )
 
 
 if __name__ == "__main__":

@@ -23,6 +23,7 @@ dependencies = [
     "scipy",
     "matplotlib",
     "soundfile",
+    "dspyplot @ git+https://github.com/JanWilczek/dspyplot.git#egg=dspyplot",
 ]
 
 [tool.setuptools]
