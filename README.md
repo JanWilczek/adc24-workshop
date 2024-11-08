@@ -213,8 +213,8 @@ In this part, you can put all your code into _Flanger.h_.
 - [ ] Add feedforward, feedback, and blend coefficients as class members of `Flanger`
 - [ ] Add `FractionalDelayLine` member to the `Flanger`
 - [ ] Implement `Flanger::reset()` where you should reset relevant member(s).
-- [ ] Add a `maxDelay_` member to the `Flanger` class (analogous to the Python class)
-- [ ] Initialize it in `prepare()` with the same length in samples as in Python
+- [ ] Add `maxDelay_` and `middleDelay_` members to the `Flanger` class (analogous to the Python class)
+- [ ] Initialize them in `prepare()` with the same lengths in samples as in Python
 - [ ] Implement update equations in `processSample()` as you did in Python. Use a fixed delay tap instead of a modulated delay tap (exactly as the initial version in Python); you'll add LFO later
 - [ ] Build your project
 - [ ] Run the end-2-end unit test with `ctest --preset <used-preset>` again. Can you hear a spectral coloration in the output file? Is it the same as in the initial (fixed-delay) Python implementation?
