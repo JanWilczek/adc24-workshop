@@ -42,7 +42,6 @@ public:
 
 private:
   using ParameterLayout = juce::AudioProcessorValueTreeState::ParameterLayout;
-  using ParameterGroup = juce::AudioProcessorParameterGroup;
 
   struct Parameters {
     explicit Parameters(ParameterLayout&);
