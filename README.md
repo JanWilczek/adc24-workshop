@@ -255,14 +255,14 @@ Usually, we would implement parameter smoothing in this part but `juce::dsp::Osc
     - [ ] Initialize the member with 0.1
     - [ ] Create a setter for the parameters, i.e., `Flanger::setParameters(const Parameters&)` where you update the frequency of the `juce::dsp::Oscillator` instance
     - [ ] Set flanger's parameters with this setter in `processBlock()` after retrieving the plugin parameter value
-- [ ] Return a juce::GenericAudioProcessorEditor in the Editor (we're just working on the DSP part after all)
+- [ ] Return a `juce::GenericAudioProcessorEditor` in `PluginProcessor::createEditor()` (we're just working on the DSP part after all)
 - [ ] Compile the plugin
 - [ ] Run the plugin in the DAW. Can you adjust the LFO frequency and the change is audible?
 - [ ] Make the plugin stereo using JUCE’s `juce::dsp::ProcessorDuplicator`
     - [ ] Change `PluginProcessor::flanger_` member type to `juce::dsp::ProcessorDuplicator<Flanger<SampleType>, Flanger<SampleType>::Parameters>`
     - [ ] Add an alias in `Flanger::Parameters`: `using Ptr = std::shared_ptr<Parameters>`
     - [ ] Add a `Parameters::Ptr` member in `Flanger`
-    - [ ] Add an `explicit` constructor of `Flanger` that takes `Parameters::Ptr` as its only argument and stores it in the just added member
+    - [ ] Add an `explicit` constructor of `Flanger` that takes `Parameters::Ptr` as its only argument and stores it in the just added member (you may need to default the default constructor implementation)
     - [ ] Call `setParameters(*parameters_)` in `process()` before the actual processing begins
     - [ ] Instead of calling `flanger_.setParameters(newParameters)` in `processBlock()`, set the shared state with `*flanger_.state = newParameters`
     - [ ] Compile the project
