@@ -23,7 +23,7 @@ public:
   void prepare(const juce::dsp::ProcessSpec& spec) {
     constexpr auto MAX_DELAY_SECONDS = 0.002;
     maxDelay_ =
-        static_cast<int>(std::ceil(spec.sampleRate * MAX_DELAY_SECONDS));
+        static_cast<SampleType>(std::ceil(spec.sampleRate * MAX_DELAY_SECONDS));
     middleDelay_ = maxDelay_ / SampleType(2);
     lfo_.prepare(spec);
 
@@ -99,7 +99,7 @@ private:
   FractionalDelayLine delayLine_;
   juce::dsp::Oscillator<SampleType> lfo_{
       [](auto phase) { return std::sin(phase); }, 128u};
-  int maxDelay_{};
+  SampleType maxDelay_{};
   SampleType middleDelay_{};
 
   Parameters::Ptr parameters_{std::make_shared<Parameters>()};
