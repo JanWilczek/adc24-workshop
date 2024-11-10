@@ -13,7 +13,7 @@ public:
   void prepare(const juce::dsp::ProcessSpec& spec) {
     constexpr auto MAX_DELAY_SECONDS = 0.002;
     maxDelay_ =
-        static_cast<int>(std::ceil(spec.sampleRate * MAX_DELAY_SECONDS));
+        static_cast<SampleType>(std::ceil(spec.sampleRate * MAX_DELAY_SECONDS));
     middleDelay_ = maxDelay_ / SampleType(2);
 
     reset();
@@ -71,7 +71,7 @@ private:
   SampleType feedback_ = SampleType(0.7);
   SampleType blend_ = SampleType(0.7);
   FractionalDelayLine delayLine_;
-  int maxDelay_{};
+  SampleType maxDelay_{};
   SampleType middleDelay_{};
 };
 }  // namespace audio_plugin

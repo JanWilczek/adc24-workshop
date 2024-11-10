@@ -12,8 +12,11 @@ public:
   void reset();
 
 private:
-  static constexpr auto MAX_DELAY = 48000u;
-  std::array<float, MAX_DELAY> buffer_{};
+  static constexpr auto DELAY_LINE_LENGTH = 48000u;
+
+  [[nodiscard]] float clampDelay(float delay) const noexcept;
+
+  std::array<float, DELAY_LINE_LENGTH> buffer_{};
 
   float delay_ = 4.f;
   int writeHead_ = 0;
