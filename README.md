@@ -25,7 +25,7 @@ WAV files and PNG files require `git-lfs`. It should be bundled with your `git` 
 
 ```bash
 git lfs install
-git lfs checkout
+git lfs fetch
 ```
 
 You can try playing back files in the _data_ folder to check if it worked correctly.
