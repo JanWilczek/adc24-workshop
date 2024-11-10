@@ -42,7 +42,7 @@ cpmaddpackage(
   GITHUB_REPOSITORY
   JanWilczek/wolfsound-dsp-utils
   VERSION
-  0.1.0
+  0.1.1
   SOURCE_DIR
   ${LIB_DIR}/wolfsound-dsp-utils
 )
