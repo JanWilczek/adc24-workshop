@@ -25,6 +25,7 @@ WAV files and PNG files require `git-lfs`. It should be bundled with your `git` 
 
 ```bash
 git lfs install
+git lfs fetch
 git lfs checkout
 ```
 
